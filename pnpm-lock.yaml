@@ -21,8 +21,8 @@ importers:
         specifier: 19.1.9
         version: 19.1.9(@types/react@19.1.12)
       happy-dom:
-        specifier: 20.14.6
-        version: 20.14.6
+        specifier: 21.0.4
+        version: 21.0.4
       react:
         specifier: 19.1.1
         version: 19.1.1
@@ -40,7 +40,7 @@ importers:
         version: 8.3.8(@types/node@26.6.6)(esbuild@0.27.7)
       vitest:
         specifier: 4.1.12
-        version: 4.1.12(@types/node@26.6.6)(happy-dom@20.14.6)(vite@8.3.8(@types/node@26.6.6)(esbuild@0.27.7))
+        version: 4.1.12(@types/node@26.6.6)(happy-dom@21.0.4)(vite@8.3.8(@types/node@26.6.6)(esbuild@0.27.7))
 
   packages/core:
     dependencies:
@@ -698,8 +698,8 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
 
-  happy-dom@20.14.6:
-    resolution: {integrity: sha512-5DDsf4QmEIlRL6NkCv/fxSjYHHkZceL/IaYQdJc2h3G7DRTEai++VTjbfL0LB9geW2VrA3+vrjF3Efx+OTtX0Q==}
+  happy-dom@21.0.4:
+    resolution: {integrity: sha512-tFm+GaLBgo6o0awHnvHaNoraVo27qJ+2tZEtZ+cIa08hXbeitrxAJajLI05hsUy/2/YTKcUjQYzHe5mCcraLBw==}
     engines: {node: '>=20.0.0'}
 
   joycon@3.1.1:
@@ -1084,8 +1084,8 @@ packages:
     engines: {node: '>=8'}
     hasBin: true
 
-  ws@8.22.2:
-    resolution: {integrity: sha512-/rEZ2ejown2N5gxVTHUu9bVVC7ttu0/Tgzf5hbTOixR3Fs7mbbXgn2DbdbcKgJOmpQMtrIUWivtYuVMnp/W/yA==}
+  ws@8.23.0:
+    resolution: {integrity: sha512-wCkmX8QMOrKjgO8HW2WyDbTSGeqkocxgDzS9iR79rEAexty6/2qzilx3Ag8Tqf9ykop3irLKle0MtVn5qjVnoQ==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
@@ -1532,7 +1532,7 @@ snapshots:
   fsevents@2.3.3:
     optional: true
 
-  happy-dom@20.14.6:
+  happy-dom@21.0.4:
     dependencies:
       '@types/node': 26.6.6
       '@types/whatwg-mimetype': 3.0.2
@@ -1540,7 +1540,7 @@ snapshots:
       buffer-image-size: 0.6.4
       entities: 7.0.1
       whatwg-mimetype: 3.0.0
-      ws: 8.22.2
+      ws: 8.23.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -1836,7 +1836,7 @@ snapshots:
       esbuild: 0.27.7
       fsevents: 2.3.3
 
-  vitest@4.1.12(@types/node@26.6.6)(happy-dom@20.14.6)(vite@8.3.8(@types/node@26.6.6)(esbuild@0.27.7)):
+  vitest@4.1.12(@types/node@26.6.6)(happy-dom@21.0.4)(vite@8.3.8(@types/node@26.6.6)(esbuild@0.27.7)):
     dependencies:
       '@vitest/expect': 4.1.12
       '@vitest/mocker': 4.1.12(vite@8.3.8(@types/node@26.6.6)(esbuild@0.27.7))
@@ -1860,7 +1860,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 26.6.6
-      happy-dom: 20.14.6
+      happy-dom: 21.0.4
     transitivePeerDependencies:
       - msw
 
@@ -1871,4 +1871,4 @@ snapshots:
       siginfo: 2.0.0
       stackback: 0.0.2
 
-  ws@8.22.2: {}
+  ws@8.23.0: {}
