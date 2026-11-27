@@ -1,9 +1,19 @@
 version: 2
+# Grouped so the repository gets a few reviewable pull requests a week instead of one per package.
+# Security updates are not affected by grouping and still arrive as soon as an advisory is published.
 updates:
   - package-ecosystem: npm
     directory: /
     schedule: { interval: weekly }
     open-pull-requests-limit: 5
+    groups:
+      npm-minor-and-patch:
+        update-types: [minor, patch]
+      npm-major:
+        update-types: [major]
   - package-ecosystem: github-actions
     directory: /
     schedule: { interval: weekly }
+    groups:
+      github-actions:
+        patterns: ['*']
