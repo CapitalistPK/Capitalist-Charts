@@ -7,6 +7,9 @@ updates:
     schedule: { interval: weekly }
     open-pull-requests-limit: 5
     groups:
+      # React and React DOM must always share one version; updating one alone breaks rendering.
+      react:
+        patterns: ['react', 'react-dom', '@types/react', '@types/react-dom']
       npm-minor-and-patch:
         update-types: [minor, patch]
       npm-major:
