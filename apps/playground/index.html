@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Capitalist Charts playground</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: Inter, system-ui, sans-serif; margin: 0; padding: 24px 16px; background: #faf9fa; color: #1b1c1d; }
+    body.dark { background: #0b0b0c; color: #ececee; }
+    main { max-width: 1120px; margin: 0 auto; display: grid; gap: 22px; }
+    h2 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: #6b6f7c; margin: 8px 0 -10px; }
+    .row { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; align-items: start; }
+    .controls { display: flex; gap: 8px; flex-wrap: wrap; }
+    .controls button { font: inherit; padding: 6px 12px; border-radius: 8px; border: 1px solid #ccc; background: transparent; color: inherit; cursor: pointer; }
+    p.prose { max-width: 720px; line-height: 1.6; }
+    .builder { border: 1px solid #cfd1d6; border-radius: 12px; padding: 16px; background: color-mix(in srgb, currentColor 3%, transparent); }
+    .builder-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; align-items: end; }
+    .builder label { display: grid; gap: 5px; font-size: .78rem; }
+    .builder input, .builder select { min-height: 34px; box-sizing: border-box; width: 100%; font: inherit; color: inherit; background: transparent; border: 1px solid #aeb2bc; border-radius: 6px; padding: 5px 7px; }
+    .builder input[type="color"] { padding: 2px; }
+    .builder output { font-size: .75rem; color: #6b6f7c; }
+    .builder-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+    .builder-actions button { font: inherit; min-height: 40px; padding: 7px 13px; border-radius: 7px; border: 1px solid #aeb2bc; background: transparent; color: inherit; cursor: pointer; }
+    .builder-output { width: 100%; min-height: 110px; margin-top: 12px; box-sizing: border-box; font: 12px ui-monospace, monospace; color: inherit; background: #111318; border: 0; border-radius: 8px; padding: 10px; }
+    .builder-preview { min-height: 560px; margin-top: 16px; padding: 18px; display: grid; place-items: start center; border: 1px dashed #aeb2bc; border-radius: 8px; background: var(--preview-bg, #fff); }
+    .builder-preview > * { width: min(100%, 560px); }
+    @media (max-width: 600px) { .builder-preview { padding: 10px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Capitalist Charts playground</h1>
+    <p>Sample data only. Run <code>pnpm build</code>, serve the repository root, and open this page.</p>
+    <div class="controls">
+      <button data-theme="light">Light</button><button data-theme="dark">Dark</button><button data-theme="transparent">Transparent</button>
+      <button data-locale="en">English</button><button data-locale="ur">اردو</button>
+    </div>
+
+    <section class="builder" aria-labelledby="builder-title">
+      <h2 id="builder-title">Theme builder</h2>
+      <p class="prose">Choose a real widget, tune every public theme token, and copy the CSS for your page.</p>
+      <div class="builder-grid">
+        <label>Widget<select id="builder-widget" aria-label="Widget"></select></label>
+        <label>Theme<select id="builder-theme" aria-label="Theme"><option>light</option><option>dark</option><option>transparent</option></select></label>
+        <label>Density<select id="builder-density" aria-label="Density"><option>comfortable</option><option>compact</option></select></label>
+        <label>Up and down palette<select id="builder-palette" aria-label="Up and down palette"><option value="pk">PK</option><option value="cvd">Colour blind safe</option></select></label>
+        <label>Radius <output id="builder-radius-value">10px</output><input id="builder-radius" type="range" min="0" max="24" value="10" aria-label="Border radius"></label>
+        <label>Font<input id="builder-font" value="inherit" aria-label="Font family"></label>
+        <label>Numeric font<input id="builder-font-numeric" value="inherit" aria-label="Numeric font family"></label>
+        <label>Urdu font<input id="builder-font-ur" value="Noto Naskh Arabic, inherit" aria-label="Urdu font family"></label>
+      </div>
+      <div id="builder-colors" class="builder-grid" aria-label="Colour tokens"></div>
+      <div class="builder-actions">
+        <button id="builder-copy" type="button">Copy CSS</button>
+        <span id="builder-copy-status" role="status" aria-live="polite"></span>
+      </div>
+      <textarea id="builder-css" class="builder-output" readonly aria-label="Generated CSS"></textarea>
+      <div id="builder-preview" class="builder-preview" aria-label="Widget preview"></div>
+    </section>
+
+    <h2>Tickers</h2>
+    <cap-ticker-tape symbols="PSX:KSE100,PSX:OGDC,PSX:PPL,PSX:HBL,PSX:MEBL,PSX:LUCK,PSX:ENGRO,PSX:FFC"><a href="https://capitalist.pk/psx">Pakistan stock prices</a></cap-ticker-tape>
+    <cap-ticker-tape index="KSE100"></cap-ticker-tape>
+    <p class="prose">Oil and gas explorers led the session: <cap-ticker-tag symbol="PSX:OGDC">OGDC</cap-ticker-tag> and <cap-ticker-tag symbol="PSX:PPL" show="change">PPL</cap-ticker-tag> moved while the <cap-ticker-tag symbol="PSX:KSE100">KSE-100</cap-ticker-tag> held its range.</p>
+    <div class="row">
+      <cap-quote symbol="PSX:OGDC"><a href="https://capitalist.pk/psx/ogdc">OGDC share price</a></cap-quote>
+      <cap-quote symbol="PSX:MEBL"></cap-quote>
+      <cap-quote symbol="PSX:NOPE"></cap-quote>
+    </div>
+
+    <h2>Charts</h2>
+    <div class="row">
+      <cap-mini-chart symbol="PSX:KSE100" range="1D"></cap-mini-chart>
+      <cap-mini-chart symbol="PSX:LUCK" range="3M" chart-type="candles"></cap-mini-chart>
+      <cap-mini-chart symbol="PSX:HBL" range="1Y" chart-type="line"></cap-mini-chart>
+    </div>
+    <cap-symbol-overview symbols="PSX:OGDC" range="6M" chart-type="candles"></cap-symbol-overview>
+    <cap-symbol-overview symbols="PSX:OGDC,PSX:PPL,PSX:MARI" range="1Y" style="height:360px"></cap-symbol-overview>
+
+    <h2>Market</h2>
+    <div class="row">
+      <cap-market-summary></cap-market-summary>
+      <cap-movers></cap-movers>
+      <cap-movers tab="active" rows="6"></cap-movers>
+    </div>
+    <cap-market-map></cap-market-map>
+
+    <h2>Economy, flows, funds, calendar</h2>
+    <cap-fx-cross-rates></cap-fx-cross-rates>
+    <cap-fipi-lipi></cap-fipi-lipi>
+    <div class="row">
+      <cap-fund-card fund="meezan-islamic-fund"></cap-fund-card>
+      <cap-corporate-calendar></cap-corporate-calendar>
+      <cap-corporate-calendar symbol="PSX:LUCK"></cap-corporate-calendar>
+    </div>
+    <h2>Market analytics</h2>
+    <div class="row">
+      <cap-sector-performance></cap-sector-performance>
+      <cap-index-contributors index="PSX:KSE100"></cap-index-contributors>
+      <cap-sector-money-map></cap-sector-money-map>
+    </div>
+    <h2>Company</h2>
+    <div class="row">
+      <cap-company-profile symbol="PSX:LUCK"></cap-company-profile>
+      <cap-valuation symbol="PSX:HBL"></cap-valuation>
+      <cap-financials symbol="PSX:OGDC"></cap-financials>
+      <cap-dividends symbol="PSX:FFC"></cap-dividends>
+      <cap-insider-trades symbol="PSX:SYS"></cap-insider-trades>
+      <cap-radar symbol="PSX:OGDC"></cap-radar>
+      <cap-seasonality symbol="PSX:OGDC"></cap-seasonality>
+      <cap-shariah symbol="PSX:MEBL"></cap-shariah>
+    </div>
+    <p class="prose">Meezan Bank is <cap-shariah symbol="PSX:MEBL" shape="inline">Shariah compliant</cap-shariah> according to the latest recomposition.</p>
+    <h2>Funds, news, economy, tools</h2>
+    <div class="row">
+      <cap-fund-performance fund="sample-fund"></cap-fund-performance>
+      <cap-fund-leaderboard category="equity"></cap-fund-leaderboard>
+      <cap-news></cap-news>
+      <cap-watchlist symbols="PSX:KSE100,PSX:OGDC,PSX:HBL,PSX:LUCK,PSX:ENGRO,PSX:SYS"></cap-watchlist>
+      <cap-futures-board rows="8"></cap-futures-board>
+      <cap-economic-calendar></cap-economic-calendar>
+      <cap-macro code="PAK.CPI.YOY"></cap-macro>
+      <cap-fx-heatmap></cap-fx-heatmap>
+      <cap-commodities></cap-commodities>
+      <cap-screener></cap-screener>
+      <cap-tax-calculator salary="250000"></cap-tax-calculator>
+    </div>
+  </main>
+  <script type="importmap">{ "imports": { "@capitalist-charts/schema": "../../packages/schema/dist/index.js", "@capitalist-charts/schema/base": "../../packages/schema/dist/base.js", "@capitalist-charts/schema/views": "../../packages/schema/dist/views.js", "@capitalist-charts/schema/analytics": "../../packages/schema/dist/analytics.js" } }</script>
+  <script type="module">
+    // Point the widgets at sample data, then load the same CDN loader a real site uses.
+    import { mockAdapter } from '../../packages/core/dist/index.js';
+    window.CapitalistCharts = { adapter: mockAdapter() };
+    await import('../../packages/elements/cdn/loader.js');
+    const catalog = [
+      'cap-ticker-tag','cap-quote','cap-ticker-tape','cap-mini-chart','cap-symbol-overview','cap-advanced-chart','cap-market-summary','cap-movers','cap-market-map','cap-fx-cross-rates','cap-fipi-lipi','cap-fund-card','cap-corporate-calendar','cap-sector-performance','cap-index-contributors','cap-sector-money-map','cap-valuation','cap-financials','cap-dividends','cap-insider-trades','cap-radar','cap-shariah','cap-fund-performance','cap-fund-leaderboard','cap-news','cap-watchlist','cap-seasonality','cap-futures-board','cap-company-profile','cap-economic-calendar','cap-macro','cap-fx-heatmap','cap-commodities','cap-screener','cap-tax-calculator'
+    ];
+    const colorDefaults = { bg: '#ffffff', surface: '#f5f3f4', text: '#1b1c1d', 'text-muted': '#434653', faint: '#6b6f7c', border: '#e3e2e3', accent: '#094cb2', up: '#166534', down: '#ba1a1a', flat: '#6b6f7c', warn: '#b45309' };
+    const colorBox = document.querySelector('#builder-colors');
+    for (const [token, value] of Object.entries(colorDefaults)) {
+      const label = document.createElement('label');
+      label.textContent = `--cap-${token}`;
+      const input = document.createElement('input');
+      input.type = 'color'; input.value = value; input.dataset.token = token; input.setAttribute('aria-label', `--cap-${token}`);
+      label.append(input); colorBox.append(label);
+    }
+    const widget = document.querySelector('#builder-widget');
+    for (const tag of catalog) { const option = document.createElement('option'); option.value = tag; option.textContent = tag; widget.append(option); }
+    const controls = [...document.querySelectorAll('.builder input, .builder select')];
+    const preview = document.querySelector('#builder-preview');
+    const cssOutput = document.querySelector('#builder-css');
+    const radius = document.querySelector('#builder-radius');
+    const radiusValue = document.querySelector('#builder-radius-value');
+    const attrs = (tag) => {
+      const defaults = { 'cap-ticker-tag': { symbol: 'PSX:OGDC' }, 'cap-quote': { symbol: 'PSX:OGDC' }, 'cap-ticker-tape': { symbols: 'PSX:KSE100,PSX:OGDC,PSX:HBL' }, 'cap-mini-chart': { symbol: 'PSX:OGDC', range: '1D' }, 'cap-symbol-overview': { symbols: 'PSX:OGDC,PSX:PPL', range: '1Y' }, 'cap-advanced-chart': { symbol: 'PSX:OGDC' }, 'cap-fund-card': { fund: 'sample-fund' }, 'cap-fund-performance': { fund: 'sample-fund' }, 'cap-fund-leaderboard': { category: 'equity' }, 'cap-macro': { code: 'PAK.CPI.YOY' }, 'cap-tax-calculator': { salary: '250000' } };
+      return defaults[tag] || {};
+    };
+    function renderBuilder() {
+      const tag = widget.value;
+      const el = document.createElement(tag);
+      for (const [name, value] of Object.entries(attrs(tag))) el.setAttribute(name, value);
+      for (const control of controls) {
+        if (!control.dataset.token) continue;
+        el.style.setProperty(`--cap-${control.dataset.token}`, control.value);
+      }
+      el.setAttribute('theme', document.querySelector('#builder-theme').value);
+      el.setAttribute('density', document.querySelector('#builder-density').value);
+      el.setAttribute('palette', document.querySelector('#builder-palette').value);
+      el.style.setProperty('--cap-radius', `${radius.value}px`);
+      el.style.setProperty('--cap-font', document.querySelector('#builder-font').value || 'inherit');
+      el.style.setProperty('--cap-font-numeric', document.querySelector('#builder-font-numeric').value || 'inherit');
+      el.style.setProperty('--cap-font-ur', document.querySelector('#builder-font-ur').value || 'inherit');
+      preview.replaceChildren(el);
+      radiusValue.textContent = `${radius.value}px`;
+      const lines = [...document.querySelectorAll('[data-token]')].map((input) => `  --cap-${input.dataset.token}: ${input.value};`);
+      lines.push(`  --cap-radius: ${radius.value}px;`, `  --cap-font: ${document.querySelector('#builder-font').value || 'inherit'};`, `  --cap-font-numeric: ${document.querySelector('#builder-font-numeric').value || 'inherit'};`, `  --cap-font-ur: ${document.querySelector('#builder-font-ur').value || 'inherit'};`);
+      cssOutput.value = `${tag} {\n${lines.join('\n')}\n  color-scheme: ${document.querySelector('#builder-theme').value};\n}`;
+    }
+    controls.forEach((control) => control.addEventListener('input', renderBuilder));
+    document.querySelector('#builder-copy').addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(cssOutput.value); document.querySelector('#builder-copy-status').textContent = 'CSS copied'; }
+      catch { cssOutput.select(); document.querySelector('#builder-copy-status').textContent = 'Select the CSS above and copy it'; }
+    });
+    renderBuilder();
+    const all = () => document.querySelectorAll('main *');
+    document.querySelectorAll('[data-theme]').forEach((b) => b.addEventListener('click', () => {
+      document.body.classList.toggle('dark', b.dataset.theme === 'dark');
+      all().forEach((el) => el.localName.startsWith('cap-') && el.setAttribute('theme', b.dataset.theme));
+    }));
+    document.querySelectorAll('[data-locale]').forEach((b) => b.addEventListener('click', () => {
+      all().forEach((el) => el.localName.startsWith('cap-') && el.setAttribute('locale', b.dataset.locale));
+    }));
+  </script>
+</body>
+</html>

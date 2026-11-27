@@ -1,0 +1,63 @@
+{
+  "name": "@capitalist-charts/core",
+  "version": "1.0.0",
+  "description": "Framework-free core for Capitalist Charts: data adapters, shared poller, formatters, icons.",
+  "keywords": [
+    "capitalist-charts",
+    "widgets",
+    "web-components",
+    "financial-charts",
+    "stock-market",
+    "market-data",
+    "psx",
+    "pakistan",
+    "embeddable",
+    "typescript",
+    "data-adapter",
+    "formatters",
+    "poller"
+  ],
+  "homepage": "https://github.com/CapitalistPK/Capitalist-Charts/tree/main/packages/core#readme",
+  "bugs": {
+    "url": "https://github.com/CapitalistPK/Capitalist-Charts/issues"
+  },
+  "author": "Capitalist (https://capitalist.pk)",
+  "license": "Apache-2.0",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./render": {
+      "types": "./dist/render.d.ts",
+      "import": "./dist/render.js"
+    },
+    "./analytics": {
+      "types": "./dist/analytics.d.ts",
+      "import": "./dist/analytics.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@capitalist-charts/schema": "workspace:*"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts src/render.ts src/analytics.ts --format esm --dts --clean --target es2022",
+    "prepublishOnly": "pnpm run build && node ../../scripts/pack-check.mjs"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CapitalistPK/Capitalist-Charts.git",
+    "directory": "packages/core"
+  }
+}

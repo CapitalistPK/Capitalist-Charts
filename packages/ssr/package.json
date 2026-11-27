@@ -1,0 +1,55 @@
+{
+  "name": "@capitalist-charts/ssr",
+  "version": "1.0.0",
+  "description": "Server-rendered fallback and embed helpers for Capitalist Charts.",
+  "keywords": [
+    "capitalist-charts",
+    "widgets",
+    "web-components",
+    "financial-charts",
+    "stock-market",
+    "market-data",
+    "psx",
+    "pakistan",
+    "embeddable",
+    "typescript",
+    "ssr",
+    "server-side-rendering",
+    "seo"
+  ],
+  "homepage": "https://github.com/CapitalistPK/Capitalist-Charts/tree/main/packages/ssr#readme",
+  "bugs": {
+    "url": "https://github.com/CapitalistPK/Capitalist-Charts/issues"
+  },
+  "author": "Capitalist (https://capitalist.pk)",
+  "license": "Apache-2.0",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@capitalist-charts/schema": "workspace:*"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --clean --target es2022",
+    "prepublishOnly": "pnpm run build && node ../../scripts/pack-check.mjs"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CapitalistPK/Capitalist-Charts.git",
+    "directory": "packages/ssr"
+  }
+}

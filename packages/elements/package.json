@@ -1,0 +1,71 @@
+{
+  "name": "@capitalist-charts/elements",
+  "version": "1.0.0",
+  "description": "Capitalist Charts web components: <cap-quote>, <cap-ticker-tape> and more.",
+  "keywords": [
+    "capitalist-charts",
+    "widgets",
+    "web-components",
+    "financial-charts",
+    "stock-market",
+    "market-data",
+    "psx",
+    "pakistan",
+    "embeddable",
+    "typescript",
+    "custom-elements",
+    "lit",
+    "ticker-tape",
+    "stock-widget",
+    "charting"
+  ],
+  "homepage": "https://github.com/CapitalistPK/Capitalist-Charts/tree/main/packages/elements#readme",
+  "bugs": {
+    "url": "https://github.com/CapitalistPK/Capitalist-Charts/issues"
+  },
+  "author": "Capitalist (https://capitalist.pk)",
+  "license": "Apache-2.0",
+  "type": "module",
+  "sideEffects": [
+    "./dist/index.js",
+    "./dist/loader.js",
+    "./dist/cap-*.js"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./loader": {
+      "import": "./dist/loader.js"
+    },
+    "./catalog": {
+      "types": "./dist/catalog.d.ts",
+      "import": "./dist/catalog.js"
+    }
+  },
+  "files": [
+    "dist",
+    "cdn"
+  ],
+  "dependencies": {
+    "@capitalist-charts/core": "workspace:*",
+    "@capitalist-charts/schema": "workspace:*",
+    "lit": "3.3.3"
+  },
+  "scripts": {
+    "build": "tsup",
+    "prepublishOnly": "pnpm run build && node ../../scripts/pack-check.mjs"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CapitalistPK/Capitalist-Charts.git",
+    "directory": "packages/elements"
+  }
+}

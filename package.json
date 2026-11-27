@@ -1,0 +1,40 @@
+{
+  "name": "capitalist-charts",
+  "private": true,
+  "description": "Capitalist Charts: open-source, live, embeddable market and analytics widgets.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "packageManager": "pnpm@11.17.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "pnpm --recursive --filter \"./packages/*\" run build",
+    "docs": "node scripts/gen-docs.mjs",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "size": "node scripts/size-check.mjs",
+    "check": "pnpm typecheck && pnpm test && pnpm build && pnpm size"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.12",
+    "@types/react-dom": "19.1.9",
+    "@axe-core/playwright": "4.11.0",
+    "@playwright/test": "1.63.0",
+    "happy-dom": "20.14.6",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "tsup": "8.5.1",
+    "typescript": "5.9.3",
+    "vitest": "4.1.12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CapitalistPK/Capitalist-Charts.git"
+  },
+  "homepage": "https://github.com/CapitalistPK/Capitalist-Charts#readme",
+  "bugs": {
+    "url": "https://github.com/CapitalistPK/Capitalist-Charts/issues"
+  }
+}

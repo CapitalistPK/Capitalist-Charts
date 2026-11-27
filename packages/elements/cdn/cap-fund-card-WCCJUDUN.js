@@ -1,0 +1,19 @@
+import {a}from'./chunk-HKMTIH7J.js';import {a as a$3,d,c as c$1}from'./chunk-QF2AVXSF.js';import {a as a$1}from'./chunk-YYNZLXDD.js';import {k,a as a$2,j,b,g}from'./chunk-TBDUB2M3.js';import'./chunk-27VB6R7A.js';import {E,M,b as b$1,C as C$1,d as d$1,e}from'./chunk-AQVZWCVV.js';var C=0,c=class extends k{constructor(){super(...arguments);this.fund="";this.size=new a(()=>this.requestUpdate());this.gid=`cfc${++C}`;}static{this.properties={fund:{type:String}};}static{this.styles=[...k.styles,a$1,a$2`
+      :host { min-width: 280px; }
+      .meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; font-size: 0.72rem; color: var(--_muted); }
+      .badge { border: 1px solid var(--_border); border-radius: 99px; padding: 0 7px; }
+      .badge.sh { color: var(--_up); border-color: color-mix(in srgb, var(--_up) 40%, transparent); }
+      .nav { display: flex; align-items: baseline; gap: 8px; }
+      .nav .px { font-size: 1.4rem; font-weight: 600; }
+      .rets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+      .ret { background: var(--_surface); border-radius: 8px; padding: 5px 8px; font-size: 0.7rem; color: var(--_muted); }
+      .ret b { display: block; font-size: 0.86rem; color: var(--_text); font-weight: 600; }
+      .plot { height: 70px; }
+    `];}res(){let t=this.fund.trim().toLowerCase();return E.test(t)?M.fund(t):null}subscriptions(){let t=this.res();return t?[j(t)]:[]}updated(){this.size.observe(this.renderRoot.querySelector(".plot"));}disconnectedCallback(){super.disconnectedCallback(),this.size.disconnect();}spark(t){let a=this.size.w,s=this.size.h;if(!a||t.spark.length<2)return "";let e=t.spark.map(d=>d[1]),o=a$3(Math.min(...e),Math.max(...e),s-2,2),r=t.spark.map((d,P)=>[P/(t.spark.length-1)*a,o(d[1])]),p=e[e.length-1]>=e[0]?"var(--_up)":"var(--_down)";return b`<svg class="chart" width=${a} height=${s} aria-hidden="true">
+      <defs><linearGradient id=${this.gid} x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color=${p} stop-opacity="0.2"></stop><stop offset="1" stop-color=${p} stop-opacity="0"></stop></linearGradient></defs>
+      <path d=${d(r,s)} fill=${`url(#${this.gid})`}></path><path d=${c$1(r)} fill="none" stroke=${p} stroke-width="1.5"></path></svg>`}render(){if(this.blockedReason)return this.blockedNotice();let t=this.res();if(!t)return this.message(this.s("fund"),this.s("notFound"));let a=this.val(t);if(a?.notFound)return this.message(this.fund,this.s("notFound"));if(!a?.data)return a?.failed?this.message(this.s("fund"),this.s("unavailable")):this.skeleton(6,this.s("fund"));let s=a.data,e$1=Math.abs(s.nav*100-Math.round(s.nav*100))<1e-6?2:4,o=new Date(`${s.navDate}T00:00:00Z`).toLocaleDateString(this.locale==="ur"?"ur-PK":"en-GB",{day:"numeric",month:"short",timeZone:"UTC"});return this.frame(this.link(`/funds/${s.slug}`,s.n,void 0,"rowlink"),b`<div class="meta"><span>${s.amc}</span><span class="badge">${s.cat}</span>${s.shariah?b`<span class="badge sh">${this.s("shariah")} ✓</span>`:""}</div>
+        <div class="nav"><span class="sub">${this.s("nav")}</span><span class="px num">${b$1(s.nav,e$1)}</span><span class="sub num">${o}</span></div>
+        <div class="rets">${C$1.filter(r=>r in s.r).map(r=>{let i=s.r[r]??null;return b`<div class="ret">${r}<b class="num ${i===null?"flat":i>0?"up":i<0?"down":"flat"}">${i===null?"\u2013":d$1(i)}</b></div>`})}</div>
+        <div class="plot">${this.spark(s)}</div>
+        <div class="meta">${s.rank?b`<span>${this.s("rank")} <b class="num">${s.rank.pos}</b> ${this.s("of")} <span class="num">${s.rank.of}</span> · 1Y</span>`:""}
+          ${s.aum!==null?b`<span>${this.s("aum")} <span class="num">PKR ${e(s.aum)}</span></span>`:""}</div>`,{foot:`${this.s("nav")} ${o}`})}};g("cap-fund-card",c);export{c as CapFundCard};

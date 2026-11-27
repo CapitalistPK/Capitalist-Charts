@@ -1,0 +1,58 @@
+import {
+  analyticsPaths as ap,
+  isCommodities,
+  isDividends,
+  isEconCalendar,
+  isFinancials,
+  isFundLeaders,
+  isFutures,
+  isInsiders,
+  isMacro,
+  isNews,
+  isProfile,
+  isRadar,
+  isScreen,
+  isSeasonality,
+  isTaxSlabs,
+  isValuation,
+  type Commodities,
+  type Dividends,
+  type EconCalendar,
+  type Financials,
+  type FundLeaders,
+  type Futures,
+  type Insiders,
+  type LeaderPeriod,
+  type Macro,
+  type News,
+  type Profile,
+  type Radar,
+  type Screen,
+  type ScreenPreset,
+  type Seasonality,
+  type TaxSlabs,
+  type Valuation,
+} from '@capitalist-charts/schema/analytics';
+import { bound, MIN, view, type Resource } from './resources.js';
+
+/**
+ * Resource builders for the analytics widgets. A separate entry (`@capitalist-charts/core/analytics`)
+ * so pages with only price widgets never download these shape checks.
+ */
+export const analytics = {
+  profile: (market: string, symbol: string): Resource<Profile> => view(ap.profile(market, symbol), bound(isProfile, { m: market, s: symbol }), 6 * 60 * MIN),
+  valuation: (market: string, symbol: string): Resource<Valuation> => view(ap.valuation(market, symbol), bound(isValuation, { m: market, s: symbol }), 60 * MIN),
+  financials: (market: string, symbol: string, per: 'annual' | 'quarterly'): Resource<Financials> => view(ap.financials(market, symbol, per), bound(isFinancials, { m: market, s: symbol, per }), 6 * 60 * MIN),
+  dividends: (market: string, symbol: string): Resource<Dividends> => view(ap.dividends(market, symbol), bound(isDividends, { m: market, s: symbol }), 6 * 60 * MIN),
+  insiders: (market: string, symbol: string): Resource<Insiders> => view(ap.insiders(market, symbol), bound(isInsiders, { m: market, s: symbol }), 60 * MIN),
+  radar: (market: string, symbol: string): Resource<Radar> => view(ap.radar(market, symbol), bound(isRadar, { m: market, s: symbol }), 15 * MIN),
+  seasonality: (market: string, symbol: string): Resource<Seasonality> => view(ap.seasonality(market, symbol), bound(isSeasonality, { m: market, s: symbol }), 24 * 60 * MIN),
+  news: (market: string, symbol?: string): Resource<News> => view(ap.news(market, symbol), bound(isNews, { m: market, s: symbol ?? '_all' }), 5 * MIN),
+  leaders: (category: string, period: LeaderPeriod): Resource<FundLeaders> => view(ap.leaders(category, period), bound(isFundLeaders, { cat: category, p: period }), 6 * 60 * MIN),
+  futures: (market: string): Resource<Futures> => view(ap.futures(market), bound(isFutures, { m: market }), MIN),
+  econ: (): Resource<EconCalendar> => view(ap.econ(), isEconCalendar, 60 * MIN),
+  macro: (code: string): Resource<Macro> => view(ap.macro(code), bound(isMacro, { c: code }), 6 * 60 * MIN),
+  commodities: (): Resource<Commodities> => view(ap.commodities(), isCommodities, 15 * MIN),
+  screener: (market: string, preset: ScreenPreset): Resource<Screen> => view(ap.screener(market, preset), bound(isScreen, { m: market, p: preset }), 60 * MIN),
+  tax: (): Resource<TaxSlabs> => view(ap.tax(), isTaxSlabs, 24 * 60 * MIN),
+};

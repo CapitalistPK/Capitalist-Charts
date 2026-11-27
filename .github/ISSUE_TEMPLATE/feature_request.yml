@@ -1,0 +1,19 @@
+name: Feature request
+description: A new widget, attribute, market or data view.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What do you want to show on your site, and for whom?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed widget or change
+      description: Element name, attributes, shapes, and a sketch if you have one.
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What you use today instead

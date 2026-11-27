@@ -1,0 +1,10 @@
+packages:
+  - packages/*
+  - apps/*
+
+# Supply-chain hygiene: refuse versions published in the last 14 days (pnpm >= 10.16).
+minimumReleaseAge: 20160
+
+# Only these packages may run install scripts (esbuild fetches its platform binary).
+allowBuilds:
+  esbuild: true

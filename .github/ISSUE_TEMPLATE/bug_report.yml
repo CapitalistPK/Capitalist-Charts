@@ -1,0 +1,46 @@
+name: Bug report
+description: A widget shows wrong data, breaks a page, or behaves differently from the docs.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Security problems belong in a private report (Security tab, "Report a vulnerability"), not here.
+  - type: input
+    id: widget
+    attributes:
+      label: Widget
+      placeholder: cap-ticker-tape
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Package version or loader URL
+      placeholder: "@capitalist-charts/elements 1.0.0, or https://capitalist.pk/widgets/v1/loader.js"
+    validations:
+      required: true
+  - type: textarea
+    id: embed
+    attributes:
+      label: The embed code
+      description: The smallest HTML that shows the problem.
+      render: html
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected, and what happened
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and OS
+      placeholder: Chrome 131 on Android 15
+  - type: textarea
+    id: console
+    attributes:
+      label: Console errors
+      render: text

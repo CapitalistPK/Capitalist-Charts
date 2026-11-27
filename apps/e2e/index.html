@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Capitalist Charts end-to-end</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: Inter, system-ui, sans-serif; margin: 0; padding: 24px 16px; background: #faf9fa; color: #1b1c1d; }
+    body.dark { background: #0b0b0c; color: #ececee; }
+    main { max-width: 1120px; margin: 0 auto; display: grid; gap: 22px; }
+    h2 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: #737784; margin: 8px 0 -10px; }
+    .row { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; align-items: start; }
+    .controls { display: flex; gap: 8px; flex-wrap: wrap; }
+    .controls button { font: inherit; padding: 6px 12px; border-radius: 8px; border: 1px solid #ccc; background: transparent; color: inherit; cursor: pointer; }
+    p.prose { max-width: 720px; line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Host site (another origin)</h1>
+    <p>Reads the compatible local data service used by the browser test harness.</p>
+    <div class="controls">
+      <button data-theme="light">Light</button><button data-theme="dark">Dark</button><button data-theme="transparent">Transparent</button>
+      <button data-locale="en">English</button><button data-locale="ur">اردو</button>
+    </div>
+
+    <h2>Tickers</h2>
+    <cap-ticker-tape symbols="PSX:KSE100,PSX:OGDC,PSX:PPL,PSX:HBL,PSX:MEBL,PSX:LUCK,PSX:ENGROH,PSX:FFC"><a href="https://capitalist.pk/psx">Pakistan stock prices</a></cap-ticker-tape>
+    <cap-ticker-tape index="KSE100"></cap-ticker-tape>
+    <p class="prose">Oil and gas explorers led the session: <cap-ticker-tag symbol="PSX:OGDC">OGDC</cap-ticker-tag> and <cap-ticker-tag symbol="PSX:PPL" show="change">PPL</cap-ticker-tag> moved while the <cap-ticker-tag symbol="PSX:KSE100">KSE-100</cap-ticker-tag> held its range.</p>
+    <div class="row">
+      <cap-quote symbol="PSX:OGDC"><a href="https://capitalist.pk/psx/ogdc">OGDC share price</a></cap-quote>
+      <cap-quote symbol="PSX:MEBL"></cap-quote>
+      <cap-quote symbol="PSX:NOPE"></cap-quote>
+    </div>
+
+    <h2>Charts</h2>
+    <div class="row">
+      <cap-mini-chart symbol="PSX:KSE100" range="1D"></cap-mini-chart>
+      <cap-mini-chart symbol="PSX:LUCK" range="3M" chart-type="candles"></cap-mini-chart>
+      <cap-mini-chart symbol="PSX:HBL" range="1Y" chart-type="line"></cap-mini-chart>
+    </div>
+    <cap-symbol-overview symbols="PSX:OGDC" range="6M" chart-type="candles"></cap-symbol-overview>
+    <cap-symbol-overview symbols="PSX:OGDC,PSX:PPL,PSX:MARI" range="1Y" style="height:360px"></cap-symbol-overview>
+
+    <h2>Market</h2>
+    <div class="row">
+      <cap-market-summary></cap-market-summary>
+      <cap-movers></cap-movers>
+      <cap-movers tab="active" rows="6"></cap-movers>
+    </div>
+    <cap-market-map></cap-market-map>
+
+    <h2>Economy, flows, funds, calendar</h2>
+    <cap-fx-cross-rates></cap-fx-cross-rates>
+    <cap-fipi-lipi></cap-fipi-lipi>
+    <div class="row">
+      <cap-fund-card fund="meezan-islamic-fund"></cap-fund-card>
+      <cap-corporate-calendar></cap-corporate-calendar>
+      <cap-corporate-calendar symbol="PSX:MARI"></cap-corporate-calendar>
+    </div>
+  </main>
+  <script type="module">
+    import { mockAdapter } from '../../packages/core/dist/index.js';
+    window.CapitalistCharts = { adapter: mockAdapter() };
+    await import('../../packages/elements/cdn/loader.js');
+    const all = () => document.querySelectorAll('main *');
+    document.querySelectorAll('[data-theme]').forEach((b) => b.addEventListener('click', () => {
+      document.body.classList.toggle('dark', b.dataset.theme === 'dark');
+      all().forEach((el) => el.localName.startsWith('cap-') && el.setAttribute('theme', b.dataset.theme));
+    }));
+    document.querySelectorAll('[data-locale]').forEach((b) => b.addEventListener('click', () => {
+      all().forEach((el) => el.localName.startsWith('cap-') && el.setAttribute('locale', b.dataset.locale));
+    }));
+  </script>
+</body>
+</html>

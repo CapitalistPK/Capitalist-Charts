@@ -1,0 +1,25 @@
+owner: CapitalistPK
+repo: Capitalist-Charts-Status
+schedule: "*/5 * * * *"
+
+sites:
+  - name: Capitalist widget loader
+    url: https://capitalist.pk/widgets/v1/loader.js
+    expectedStatusCodes:
+      - 200
+  - name: Capitalist data config
+    url: https://capitalist.pk/w/config.json
+    expectedStatusCodes:
+      - 200
+  - name: Capitalist PSX quote snapshot
+    url: https://capitalist.pk/w/snap/PSX/OGDC.json
+    expectedStatusCodes:
+      - 200
+  - name: Capitalist series view
+    url: https://capitalist.pk/w/v/series/PSX/OGDC/1Y.json
+    expectedStatusCodes:
+      - 200
+  - name: Capitalist widget gallery
+    url: https://capitalist.pk/widgets
+    expectedStatusCodes:
+      - 200

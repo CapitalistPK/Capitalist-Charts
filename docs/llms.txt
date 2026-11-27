@@ -1,0 +1,31 @@
+# Capitalist Charts
+
+Capitalist Charts is an Apache-2.0 open-source pnpm monorepo of embeddable live market widgets. Widgets are Lit custom elements named `<cap-*>`, beginning with PSX coverage.
+
+## Embed
+
+Load `https://capitalist.pk/widgets/v1/loader.js` as an async module, then place a catalog tag such as `<cap-quote symbol="PSX:OGDC">`. Keep a normal link inside the tag for crawlable fallback content.
+
+## Common attributes
+
+Every widget accepts `theme="auto|light|dark|transparent"`, `palette="pk|cvd"`, `density="comfortable|compact"`, and `locale="en|ur"`.
+
+## Events
+
+Widgets emit `cap:ready`, `cap:update`, `cap:error`, cancellable `cap:link`, and `cap:select`. Events bubble and are composed.
+
+## Packages
+
+- `@capitalist-charts/elements`: Lit web components and loader.
+- `@capitalist-charts/react`: catalog-generated React wrappers; client-only element registration and provider configuration.
+- `@capitalist-charts/ssr`: escaped `embedSnippet`, `fallbackHtml`, and non-throwing `fetchFallbackData`.
+- `@capitalist-charts/schema`: QuoteSnapshot, L0/L1 view types, validators, symbol parsing, and paths.
+- `@capitalist-charts/core`: DataAdapter, poller, formatters, and resource loading.
+
+## Data
+
+The default static data root is `https://capitalist.pk/w/`. L0 files contain quote snapshots and market status; L1 files contain bounded series and view models. Publishers can configure a compatible `dataBase`, implement `DataAdapter`, or self-host the static tree.
+
+## Trust and scope
+
+The project is focused on simple live embeds and PSX coverage. It does not claim TradingView's global coverage or overall charting power. The hosted service uses public market data and does not require cookies, sign-in, or an API key to copy the embed.

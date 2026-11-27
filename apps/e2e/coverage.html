@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Capitalist Charts browser coverage</title>
+  <style>
+    body { margin: 0; padding: 24px; font-family: system-ui, sans-serif; color: #1b1c1d; background: #fff; }
+    #fixture { min-height: 600px; width: min(100%, var(--fixture-width, 560px)); margin-inline: auto; }
+    #fixture > * { width: 100%; box-sizing: border-box; }
+    #after-widget { margin: 18px 0 0; }
+    .dark { color: #ececee; background: #141414; }
+  </style>
+</head>
+<body>
+  <main id="fixture" aria-label="Widget fixture">
+    <p id="after-widget">Text after the widget stays in place while data loads.</p>
+  </main>
+  <script type="module">
+    import { mockAdapter } from '../../packages/core/dist/index.js';
+    const query = new URLSearchParams(location.search);
+    const tag = query.get('widget') || 'cap-quote';
+    const state = query.get('state') || 'ready';
+    const theme = query.get('theme') || 'light';
+    const shape = query.get('shape');
+    const requestedWidth = Number(query.get('width'));
+    if (Number.isFinite(requestedWidth) && requestedWidth > 0) document.documentElement.style.setProperty('--fixture-width', `${requestedWidth}px`);
+    const delayed = () => new Promise((resolve) => setTimeout(resolve, 30_000));
+    const source = mockAdapter({ open: state !== 'market-closed', now: state === 'stale' ? () => Date.now() - 180_000 : undefined });
+    let adapter = source;
+    if (state === 'error') adapter = { ...source, quote: async () => { throw new Error('fixture failure'); }, status: async () => { throw new Error('fixture failure'); }, load: async () => { throw new Error('fixture failure'); } };
+    if (state === 'empty' || state === 'unknown-symbol') adapter = { ...source, quote: async (_market, symbol) => state === 'unknown-symbol' || symbol === 'NOPE' ? null : source.quote(_market, symbol), load: async () => state === 'empty' ? null : source.load('config.json') };
+    if (state === 'loading') adapter = { ...source, quote: async () => { await delayed(); return null; }, status: async () => { await delayed(); return null; }, load: async () => { await delayed(); return null; } };
+    window.CapitalistCharts = { adapter };
+    if (theme === 'dark') document.body.classList.add('dark');
+    await import('../../packages/elements/cdn/loader.js');
+    const el = document.createElement(tag);
+    el.setAttribute('theme', theme);
+    if (shape) el.setAttribute('shape', shape);
+    const defaults = { symbol: state === 'unknown-symbol' ? 'PSX:NOPE' : 'PSX:OGDC', symbols: 'PSX:OGDC,PSX:PPL', range: '1Y', fund: 'sample-fund', index: 'KSE100', category: 'equity', code: 'PAK.CPI.YOY', salary: '250000' };
+    const attributes = ['symbol', 'symbols', 'range', 'fund', 'index', 'category', 'code', 'salary'];
+    for (const name of attributes) if (tag !== 'cap-advanced-chart' || name === 'symbol') if (defaults[name]) el.setAttribute(name, defaults[name]);
+    // Inline widgets live inside a sentence, so that is where their stability is measured.
+    const inline = tag === 'cap-ticker-tag' || (tag === 'cap-shariah' && shape === 'inline');
+    if (inline) {
+      el.textContent = tag === 'cap-ticker-tag' ? 'OGDC' : 'Shariah status';
+      const sentence = document.createElement('p');
+      sentence.append('Shares of ', el, ' rose after the results.');
+      document.querySelector('#fixture').prepend(sentence);
+    } else {
+      document.querySelector('#fixture').prepend(el);
+    }
+    window.__fixture = el;
+  </script>
+</body>
+</html>
