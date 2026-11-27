@@ -51,7 +51,7 @@ jobs:
       - run: pnpm exec playwright test --update-snapshots
         env:
           UPDATE_VISUAL_BASELINES: '1'
-      - uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v4
         with:
           name: visual-baselines
           path: apps/e2e/tests/**-snapshots/*.png
