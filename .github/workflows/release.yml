@@ -29,4 +29,16 @@ jobs:
             v=$(node -p "require('./$p').version")
             [ "$v" = "$tag" ] || { echo "$p is $v, tag is $tag"; exit 1; }
           done
-      - run: pnpm --recursive --filter "./packages/*" publish --access public --no-git-checks
+      # The first release went out from a maintainer's machine, before npm trusted publishing could be
+      # set up for packages that did not exist yet. Skip any version already on npm so a re-run stays green.
+      - name: Publish packages not yet on npm
+        run: |
+          for dir in packages/*; do
+            name=$(node -p "require('./$dir/package.json').name")
+            version=$(node -p "require('./$dir/package.json').version")
+            if npm view "$name@$version" version >/dev/null 2>&1; then
+              echo "$name@$version is already on npm"
+            else
+              (cd "$dir" && pnpm publish --access public --no-git-checks)
+            fi
+          done
