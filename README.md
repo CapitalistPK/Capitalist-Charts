@@ -22,7 +22,7 @@ with the Pakistan Stock Exchange.
 ```
 
 - **Live, free, no sign-up.** Copy the snippet; there is no key to request.
-- **Light.** A 1 KB loader and about 19 KB of shared code; each widget (1-2 KB) loads only when it nears the viewport.
+- **Light.** A small loader and about 19 KB of shared code; each widget (1-2 KB) loads only when it nears the viewport.
 - **Two CDNs.** If capitalist.pk cannot serve the loader, the snippet loads the identical build from jsDelivr.
 - **Readable by search engines.** Whatever you put inside the tag stays in your page as plain HTML.
 - **Yours to style.** Open Shadow DOM, `--cap-*` CSS variables and `::part()` on every region.
@@ -101,6 +101,13 @@ npm install @capitalist-charts/elements      # web components
 npm install @capitalist-charts/react         # React wrappers (React 18 and 19)
 npm install @capitalist-charts/ssr           # crawlable fallback HTML for server-rendered pages
 ```
+
+The packages are published on npm under the `@capitalist-charts` scope. See the
+[elements](https://www.npmjs.com/package/@capitalist-charts/elements),
+[React](https://www.npmjs.com/package/@capitalist-charts/react),
+[SSR](https://www.npmjs.com/package/@capitalist-charts/ssr),
+[core](https://www.npmjs.com/package/@capitalist-charts/core) and
+[schema](https://www.npmjs.com/package/@capitalist-charts/schema) package pages for their APIs.
 
 ```js
 import '@capitalist-charts/elements';

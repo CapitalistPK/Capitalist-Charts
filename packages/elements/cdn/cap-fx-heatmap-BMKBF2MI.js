@@ -1,0 +1,7 @@
+import {a}from'./chunk-FACV67IN.js';import {j as j$1}from'./chunk-QF2AVXSF.js';import {k,a as a$1,j,b,g}from'./chunk-IYZR73NK.js';import'./chunk-27VB6R7A.js';import {M,a as a$2,d}from'./chunk-AQVZWCVV.js';a();var r=class extends k{static{this.styles=[...k.styles,a$1`
+      :host { min-width: 260px; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 6px; }
+      .tile { border-radius: 8px; padding: 8px; display: flex; flex-direction: column; gap: 2px; font-size: 0.74rem; }
+      .tile b { font-size: 0.86rem; }
+    `];}subscriptions(){return [j(M.fx("PKR"))]}render(){if(this.blockedReason)return this.blockedNotice();let e=this.val(M.fx("PKR"));if(!e?.data)return e?.failed||e?.notFound?this.message(this.s("fxHeat"),this.s("unavailable")):this.skeleton(4,this.s("fxHeat"));let o=e.data;return this.frame(b`${this.s("fxHeat")} <span class="sub">· ${this.s("perPkr")}</span>`,b`<div class="grid">${o.rates.slice(0,16).map(t=>{let f=Math.round(j$1(t.cp)*60)+8,h=t.cp===null||t.cp===0?"var(--_flat)":t.cp>0?"var(--_down)":"var(--_up)";return b`<div class="tile" style="background:color-mix(in srgb, ${h} ${f}%, var(--_surface))" title=${t.n}>
+          <b>${t.c}</b><span class="num">${a$2(t.r,t.r>=100?2:t.r>=1?3:4)}</span><span class="num">${d(t.cp)}</span></div>`})}</div>`,{foot:new Date(o.t*1e3).toLocaleString(this.locale==="ur"?"ur-PK":"en-GB",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit",timeZone:"Asia/Karachi"})})}};g("cap-fx-heatmap",r);export{r as CapFxHeatmap};

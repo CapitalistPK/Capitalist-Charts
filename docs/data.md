@@ -43,13 +43,15 @@ L1 is cached, ready-to-draw data, refreshed between one minute and a day dependi
 | `v/screener/<M>/<preset>.json` | `Screen` | screener |
 | `v/tax/salaried.json` | `TaxSlabs` | salary tax calculator |
 
-Types and runtime checks live in `@capitalist-charts/schema` (`/base`, `/views`, `/analytics`).
+Types and runtime checks live in the public [`@capitalist-charts/schema`](https://www.npmjs.com/package/@capitalist-charts/schema)
+package (`/base`, `/views`, `/analytics`).
 Index contributors, sector performance and the watchlist need no extra files: they are computed
 from the L0 lists, the market map and the quotes.
 
 ## Bring your own data
 
-Implement `DataAdapter` from `@capitalist-charts/core`:
+Implement `DataAdapter` from the public [`@capitalist-charts/core`](https://www.npmjs.com/package/@capitalist-charts/core)
+package:
 
 ```ts
 interface DataAdapter {

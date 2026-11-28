@@ -1,6 +1,6 @@
 {
   "name": "@capitalist-charts/react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React wrappers for Capitalist Charts web components.",
   "keywords": [
     "capitalist-charts",

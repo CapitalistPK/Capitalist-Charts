@@ -40,24 +40,20 @@ the beacon. A page can disable it with `<meta name="capitalist-charts" content="
 The beacon is skipped when Global Privacy Control or Do Not Track is enabled, and it is never sent
 for a bring-your-own-data adapter.
 
-The request is a `POST` made with `navigator.sendBeacon` to `/w/beacon` and its `text/plain` body is
-exactly JSON with these three fields:
+The request is a `POST` made with `navigator.sendBeacon` and its `text/plain` body contains only these
+three fields:
 
 ```json
 {"d":"<location.hostname>","w":"<tag>","v":"<version>"}
 ```
 
 It contains only the host name, widget tag and package version. It contains no cookies, identifier,
-URL or user data, and the body is capped at 256 bytes. Beacons are not stored one by one: each is
-added to a daily count per host name and widget, and those counts are kept for 400 days. The beacon
-endpoint keeps no request log, so the sender's IP address is not recorded.
+URL or user data. Bring-your-own-data adapters do not send the beacon.
 
 ## What the data service serves
 
-Public market data only: current snapshots (what a visitor of a quote page sees) and bounded
-summaries (at most 300 chart points or a few dozen rows, for fixed periods). There are no date
-ranges or page numbers, so the widget feed is not a way to download history. The service receives
-nothing from the host page beyond the ordinary request (IP, user agent, referrer).
+Public market data only: current snapshots and bounded summaries for fixed periods. The data source
+does not receive widget attributes beyond the ordinary data request.
 
 ## Reporting a vulnerability
 

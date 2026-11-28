@@ -92,7 +92,7 @@ function create(options: CapitalistChartsOptions): Runtime {
 }
 
 const beaconed = new Set<string>();
-const VERSION = '1.0.0';
+const VERSION = '1.0.1';
 
 function sendImpression(dataBase: string | undefined, config: WidgetConfig, tag: string): void {
   if (beaconed.has(tag)) return;

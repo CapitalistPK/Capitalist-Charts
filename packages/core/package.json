@@ -1,6 +1,6 @@
 {
   "name": "@capitalist-charts/core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Framework-free core for Capitalist Charts: data adapters, shared poller, formatters, icons.",
   "keywords": [
     "capitalist-charts",

@@ -4,7 +4,9 @@ Capitalist Charts is an Apache-2.0 open-source pnpm monorepo of embeddable live 
 
 ## Embed
 
-Load `https://capitalist.pk/widgets/v1/loader.js` as an async module, then place a catalog tag such as `<cap-quote symbol="PSX:OGDC">`. Keep a normal link inside the tag for crawlable fallback content.
+Load `https://capitalist.pk/widgets/v1/loader.js` as an async module with the jsDelivr fallback shown
+in the repository README, then place a catalog tag such as `<cap-quote symbol="PSX:OGDC">`. Keep a
+normal link inside the tag for crawlable fallback content.
 
 ## Common attributes
 
@@ -21,6 +23,9 @@ Widgets emit `cap:ready`, `cap:update`, `cap:error`, cancellable `cap:link`, and
 - `@capitalist-charts/ssr`: escaped `embedSnippet`, `fallbackHtml`, and non-throwing `fetchFallbackData`.
 - `@capitalist-charts/schema`: QuoteSnapshot, L0/L1 view types, validators, symbol parsing, and paths.
 - `@capitalist-charts/core`: DataAdapter, poller, formatters, and resource loading.
+
+The public package release is 1.0.0. Starting with 1.0.1, package releases are published from
+GitHub with npm provenance.
 
 ## Data
 

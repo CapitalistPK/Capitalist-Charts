@@ -38,9 +38,9 @@ describe('CDN fallback in the snippet', () => {
   it('falls back to the same major on jsDelivr, or the exact version when pinned with SRI', async () => {
     const { embedSnippet } = await import('@capitalist-charts/ssr');
     expect(embedSnippet('cap-quote', { symbol: 'PSX:OGDC' })).toContain('cdn.jsdelivr.net/npm/@capitalist-charts/elements@1/cdn/loader.js');
-    const pinned = embedSnippet('cap-quote', { symbol: 'PSX:OGDC' }, { version: '0.2.0', integrity: 'sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC' });
-    expect(pinned).toContain('https://capitalist.pk/widgets/v0.2.0/loader.js');
-    expect(pinned).toContain('@capitalist-charts/elements@0.2.0/cdn/loader.js');
+    const pinned = embedSnippet('cap-quote', { symbol: 'PSX:OGDC' }, { version: '1.0.0', integrity: 'sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC' });
+    expect(pinned).toContain('https://capitalist.pk/widgets/v1.0.0/loader.js');
+    expect(pinned).toContain('@capitalist-charts/elements@1.0.0/cdn/loader.js');
     expect(pinned).not.toMatch(/onerror="[^"]*"[^>]*"[^>]*onerror/);
   });
 });

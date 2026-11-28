@@ -26,6 +26,10 @@ connect-src 'self' https://capitalist.pk;
 Pin an exact version and add Subresource Integrity when you load a fixed build:
 
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/@capitalist-charts/elements@0.1.0/cdn/loader.js"
-        integrity="sha384-…" crossorigin="anonymous"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@capitalist-charts/elements@1.0.0/cdn/loader.js"
+        integrity="sha384-8TxYb+ibLLJewrsR1mDDhQ1SkEdv/jpqP7bdUShXj8AtpuDp6KPth+45obqHxltz"
+        crossorigin="anonymous"></script>
 ```
+
+The hash above is for the published `@capitalist-charts/elements@1.0.0` CDN loader. Recompute it
+for every exact version.
