@@ -18,8 +18,8 @@
     "check": "pnpm typecheck && pnpm test && pnpm build && pnpm size"
   },
   "devDependencies": {
-    "@axe-core/playwright": "4.11.0",
-    "@playwright/test": "1.63.0",
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.65.1",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "happy-dom": "21.0.4",
