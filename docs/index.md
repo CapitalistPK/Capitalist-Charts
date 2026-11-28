@@ -9,7 +9,8 @@ Capitalist Charts is an Apache-2.0 open-source collection of embeddable, live ma
 ## Quick start
 
 ```html
-<script type="module" src="https://capitalist.pk/widgets/v1/loader.js" async></script>
+<script type="module" src="https://capitalist.pk/widgets/v1/loader.js" async
+  onerror="this.onerror=null;var s=document.createElement('script');s.type='module';s.src='https://cdn.jsdelivr.net/npm/@capitalist-charts/elements@1/cdn/loader.js';document.head.append(s)"></script>
 
 <cap-quote symbol="PSX:OGDC">
   <a href="https://capitalist.pk/psx/ogdc">OGDC share price</a>

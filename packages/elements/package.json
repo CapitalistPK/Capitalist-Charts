@@ -1,6 +1,6 @@
 {
   "name": "@capitalist-charts/elements",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Capitalist Charts web components: <cap-quote>, <cap-ticker-tape> and more.",
   "keywords": [
     "capitalist-charts",

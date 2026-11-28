@@ -1,0 +1,14 @@
+import {a}from'./chunk-FACV67IN.js';import {c}from'./chunk-CCD4FFGO.js';import {a as a$1}from'./chunk-HKMTIH7J.js';import'./chunk-QF2AVXSF.js';import {a as a$2}from'./chunk-VAEDFHRU.js';import {k,a as a$3,j,b as b$1,g}from'./chunk-IYZR73NK.js';import'./chunk-27VB6R7A.js';import {E,M,C,b,d}from'./chunk-AQVZWCVV.js';a();var P=0,p=class extends k{constructor(){super(...arguments);this.fund="";this.size=new a$1(()=>this.requestUpdate());this.gid=`cfp${++P}`;}static{this.properties={fund:{type:String}};}static{this.styles=[...k.styles,a$2,a$3`
+      :host { min-width: 300px; }
+      .card { height: 100%; }
+      .bd { flex: 1; min-height: 0; }
+      .rets { direction: ltr; display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; align-items: end; height: 90px; position: relative; }
+      .ret { display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; gap: 3px; font-size: 0.66rem; color: var(--_muted); }
+      .ret i { display: block; width: 60%; border-radius: 3px 3px 0 0; min-height: 1px; }
+      .plot { flex: 1; min-height: 80px; }
+    `];}slug(){let t=this.fund.trim().toLowerCase();return E.test(t)?t:null}subscriptions(){let t=this.slug();return t?[j(M.fund(t))]:[]}updated(){this.size.observe(this.renderRoot.querySelector(".plot"));}disconnectedCallback(){super.disconnectedCallback(),this.size.disconnect();}render(){if(this.blockedReason)return this.blockedNotice();let t=this.slug();if(!t)return this.message(this.s("fundPerf"),this.s("notFound"));let n=this.val(M.fund(t));if(n?.notFound)return this.message(this.s("fundPerf"),this.s("notFound"));if(!n?.data)return n?.failed?this.message(this.s("fundPerf"),this.s("unavailable")):this.skeleton(6,this.s("fundPerf"));let e=n.data,u=C.map(s=>e.r[s]??null),k=Math.max(1,...u.map(s=>Math.abs(s??0))),w={v:1,s:"NAV",m:"MUFAP",r:"1Y",i:"1d",pc:null,b:e.spark.map(([s,r])=>[s,r,r,r,r,null])};return this.frame(this.link(`/funds/${e.slug}`,e.n,void 0,"rowlink"),b$1`<span class="sub">${e.cat}${e.shariah?` \xB7 ${this.s("shariah")} \u2713`:""} · ${this.s("nav")} <span class="num">${b(e.nav,2)}</span></span>
+        <div class="rets" role="img" aria-label=${this.s("returns")}>
+          ${C.map((s,r)=>{let i=u[r]??null;return b$1`<div class="ret"><span class="num ${i===null?"":i>=0?"up":"down"}">${i===null?"\u2013":d(i,1)}</span>
+              <i style="height:${Math.abs(i??0)/k*55}%;background:${(i??0)>=0?"var(--_up)":"var(--_down)"}"></i><span>${s}</span></div>`})}
+        </div>
+        <div class="plot">${e.spark.length>1&&this.size.w?c(w,{type:"area",width:this.size.w,height:this.size.h,id:this.gid,axis:true}):""}</div>`,{foot:b$1`${e.rank?`${this.s("rank")} ${e.rank.pos} ${this.s("of")} ${e.rank.of} \xB7 `:""}${this.s("nav")} ${e.navDate}`})}};g("cap-fund-performance",p);export{p as CapFundPerformance};
